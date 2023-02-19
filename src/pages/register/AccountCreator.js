@@ -23,16 +23,16 @@ const AccountCreator = () => {
       <div className='flex justify-evenly '>
         <div
           onClick={() => navigate("/register/candidate")}
-          className='flex flex-col justify-between transition-all rounded-lg p-5 border border-white hover:border-primary hover:shadow-2xl hover:scale-105 group'
+          className='flex flex-col justify-between md:h-[450px] md:w-96 transition-all rounded-lg p-5 border border-white hover:border-primary hover:shadow-2xl hover:scale-105 group'
         >
           <img className='h-5/6' src={candidate} alt='' />
           <p className='text-center text-3xl'>Candidate</p>
         </div>
         <div
           onClick={() => navigate("/register/employer")}
-          className='flex flex-col justify-between transition-all rounded-lg p-5 border border-white hover:border-primary hover:shadow-2xl hover:scale-105 group'
+          className='flex flex-col justify-between md:h-[450px] md:w-96 transition-all rounded-lg p-5 border border-white hover:border-primary hover:shadow-2xl hover:scale-105 group'
         >
-          <img className='h-[77%]' src={employer} alt='' />
+          <img className='h-[73%]' src={employer} alt='' />
           <p className='text-center text-3xl'>Employer</p>
         </div>
       </div>
