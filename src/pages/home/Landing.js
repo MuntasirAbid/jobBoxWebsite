@@ -98,7 +98,7 @@ const Landing = () => {
       <div className='h-full w-full flex items-center z-10 relative'>
         <div className='flex w-full'>
           <div className='w-1/2 flex flex-col items-start'>
-            <h1 id='hero-title' className='heroElement font-bold text-7xl'>
+            <h1 id='hero-title' className='heroElement font-bold text-5xl'>
               Find the perfect <br /> job for you
             </h1>
             <p id='hero-subtitle' className='mt-5 text-lg'>
