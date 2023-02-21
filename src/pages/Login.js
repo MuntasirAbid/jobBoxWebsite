@@ -14,6 +14,7 @@ const Login = () => {
 
   const onSubmit = ({ email, password }) => {
     dispatch(loginUser({ email, password }))
+    navigate('/')
   };
 
   const handleGoogleLogin = () => {

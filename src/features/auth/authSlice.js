@@ -26,7 +26,7 @@ export const getUser = createAsyncThunk("auth/getUser", async (email) => {
     const data = await res.json();
 
     if (data.status) {
-        return data.data
+        return data
     }
 
     return email;
@@ -125,7 +125,12 @@ const authSlice = createSlice({
             })
             .addCase(getUser.fulfilled, (state, { payload }) => {
                 state.isLoading = false;
-                state.user = payload;
+
+                if (payload.status) {
+                    state.user = payload.data;
+                } else {
+                    state.user.email = payload;
+                }
                 state.isError = false;
                 state.error = "";
             })
