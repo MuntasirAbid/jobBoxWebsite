@@ -15,12 +15,9 @@ const Jobs = () => {
       </div>
       <div className='grid grid-cols-2 gap-5 mt-5'>
         {
-          data?.data?.map(({ position, companyName, _id }) => (
-            <div>
-              <h1>{position}</h1>
-              <h1>{companyName}</h1>
-              <button onClick={() => navigate(`/job-details/${_id}`)}>Details</button>
-            </div>
+          data?.data?.map(jobData => (
+            <JobCard jobData={jobData}></JobCard>
+
           ))
         }
       </div>
