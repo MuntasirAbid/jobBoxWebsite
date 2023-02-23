@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+
 import auth from '../../firebase/firebase.config';
 
 const initialState = {
@@ -55,7 +56,7 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         logout: (state) => {
-            state.user.email = ''
+            state.user = { email: "", role: "" }
         },
         setUser: (state, { payload }) => {
             state.user.email = payload;
