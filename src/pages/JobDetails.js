@@ -10,7 +10,7 @@ const JobDetails = () => {
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate()
   const { id } = useParams()
-  console.log(id);
+
   const { data, isLoading, isError } = useJobByIdQuery(id)
   const {
     companyName,

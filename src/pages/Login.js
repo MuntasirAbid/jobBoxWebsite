@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import loginImage from "../assets/login.svg";
 import { googleLogin, loginUser } from "../features/auth/authSlice";
 const Login = () => {
-  const { isLoading, email, isError, error } = useSelector((state) => state.auth)
+  const { isLoading, user: { email }, isError, error } = useSelector((state) => state.auth)
   const { register, handleSubmit, reset } = useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch()
@@ -21,17 +21,22 @@ const Login = () => {
     dispatch(googleLogin());
   }
 
-  useEffect(() => {
-    if (!isLoading && email) {
-      navigate('/')
-    }
-  }, [isLoading, email])
+  // useEffect(() => {
+  //   if (!isLoading && email) {
+  //     toast.success("Login Successful")
+  //     navigate('/')
+  //   }
+  // }, [isLoading, email])
 
   useEffect(() => {
     if (isError) {
       toast.error(error)
     }
-  }, [isError, error])
+    else if (!isLoading && email) {
+      toast.success("Login Successful")
+      navigate('/')
+    }
+  }, [isError, error, isLoading, email, navigate])
 
   return (
     <div className='flex h-screen items-center'>
