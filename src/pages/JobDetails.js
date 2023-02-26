@@ -1,18 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 
 import meeting from "../assets/meeting.jpg";
 import { BsArrowRightShort, BsArrowReturnRight } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
-import { useApplyMutation, useJobByIdQuery, useQuestionMutation } from "../features/job/jobApi";
+import { useApplyMutation, useJobByIdQuery, useQuestionMutation, useReplyMutation } from "../features/job/jobApi";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import { useForm } from "react-hook-form";
 const JobDetails = () => {
+  const [reply, setReply] = useState()
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate()
   const { id } = useParams()
   const { register, handleSubmit, reset } = useForm();
-  const { data, isLoading, isError } = useJobByIdQuery(id)
+  const { data, isLoading, isError } = useJobByIdQuery(id, { pollingInterval: 1000 })
   const {
     companyName,
     position,
@@ -31,6 +32,7 @@ const JobDetails = () => {
 
   const [apply] = useApplyMutation()
   const [sendQuestion] = useQuestionMutation()
+  const [sendReply] = useReplyMutation()
 
   const handleApply = () => {
 
@@ -62,6 +64,14 @@ const JobDetails = () => {
     }
     sendQuestion(queData)
     reset()
+  }
+
+  const handleReply = (id) => {
+    const data = {
+      reply,
+      userId: id
+    }
+    sendReply(data)
   }
 
   return (
@@ -131,19 +141,23 @@ const JobDetails = () => {
                     </p>
                   ))}
 
-                  <div className='flex gap-3 my-5'>
-                    <input placeholder='Reply' type='text' className='w-full' />
+                  {user.role === "employer" && <div className='flex gap-3 my-5'>
+                    <input placeholder='Reply' type='text' className='w-full'
+                      onBlur={(e) => setReply(e.target.value)}
+                    />
+
                     <button
                       className='shrink-0 h-14 w-14 bg-primary/10 border border-primary hover:bg-primary rounded-full transition-all  grid place-items-center text-primary hover:text-white'
                       type='button'
+                      onClick={() => handleReply(id)}
                     >
                       <BsArrowRightShort size={30} />
                     </button>
-                  </div>
+                  </div>}
                 </div>
               ))}
             </div>
-            <form onSubmit={handleSubmit
+            {user.role === "candidate" && <form onSubmit={handleSubmit
               (handleQuestion)}>
 
               <div className='flex gap-3 my-5'>
@@ -160,7 +174,7 @@ const JobDetails = () => {
                   <BsArrowRightShort size={30} />
                 </button>
               </div>
-            </form>
+            </form>}
           </div>
         </div>
       </div>
